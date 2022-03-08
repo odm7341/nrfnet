@@ -2,3 +2,4 @@
 *.swn
 *.swo
 build
+.old-git

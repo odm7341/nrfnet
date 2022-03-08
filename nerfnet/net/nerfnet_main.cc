@@ -118,8 +118,8 @@ int main(int argc, char** argv) {
   TCLAP::ValueArg<uint32_t> secondary_addr_arg("", "secondary_addr",
       "The address to use for the secondary side of nerfnet.",
       false, 0x90009000, "address", cmd);
-  TCLAP::ValueArg<uint8_t> channel_arg("", "channel",
-      "The channel to use for transmit/receive.", false, 1, "channel", cmd);
+  TCLAP::ValueArg<uint32_t> channel_arg("", "channel",
+      "The channel to use for transmit/receive.(1-128)", false, 1, "channel", cmd);
   TCLAP::ValueArg<uint32_t> poll_interval_us_arg("", "poll_interval_us",
       "Used by the primary radio only to determine how often to poll.",
       false, 100, "microseconds", cmd);
@@ -146,6 +146,10 @@ int main(int argc, char** argv) {
   LOGI("tunnel '%s' configured with '%s' mask '%s'",
        interface_name_arg.getValue().c_str(), tunnel_ip.c_str(),
        tunnel_ip_mask.getValue().c_str());
+
+  //std::string chan = std::to_string(channel_arg);
+
+  LOGI("using channel '%i'", channel_arg.getValue());
 
   if (primary_arg.getValue()) {
     nerfnet::PrimaryRadioInterface radio_interface(
